@@ -290,7 +290,7 @@ enterchat.addKeyListener(new KeyAdapter() {
             }
         });
         
-        //button caro
+        //button caro 
         bt = new JButton[x][y];
         for(int i = 0; i < x; i++)
         {
