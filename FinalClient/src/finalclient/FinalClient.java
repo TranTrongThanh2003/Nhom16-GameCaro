@@ -331,7 +331,11 @@ enterchat.addKeyListener(new KeyAdapter() {
                 p.setVisible(true);
             }
         }
-        
+
+	JTextField ipField = new JTextField("127.0.0.1"); // mặc định là localhost
+        f.add(ipField);
+        ipField.setBounds(430, 130, 150, 25);
+	
         // Thêm nút Connect (trong constructor)
         JButton btnConnect = new JButton("Connect");
         f.add(btnConnect);
@@ -342,7 +346,9 @@ enterchat.addKeyListener(new KeyAdapter() {
         public void actionPerformed(ActionEvent e) {
         try {
             // Kết nối đến server
-            socket = new Socket("127.0.0.1", 1234);
+            // socket = new Socket("127.0.0.1", 1234);
+	    String serverIP = ipField.getText().trim();
+            socket = new Socket(serverIP, 1234);
             os = socket.getOutputStream();
             is = socket.getInputStream();
             oos = new ObjectOutputStream(os);
