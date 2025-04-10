@@ -8,7 +8,7 @@ import java.awt.event.*;
 import java.net.*;
 
 public class FinalClient {
-
+    JTextField turnTextField;
     public static JFrame f;
     JButton[][] bt;
     static boolean flat = false;
@@ -42,7 +42,7 @@ public class FinalClient {
     public FinalClient() {
         f = new JFrame();
         f.setTitle("Game Caro Client");
-        ImageIcon imgIcon = new ImageIcon(getClass().getResource("icon.jpg"));
+        ImageIcon imgIcon = new ImageIcon("D:\\LT Mạng\\Caro Game\\Final\\src\\pkgfinal\\caro.jpg");
         // Tạo JLabel để chứa hình ảnh nền
         JLabel background = new JLabel(new ImageIcon(getClass().getResource("bg.jpg")));
         background.setBounds(0, 0, 750, 500); // Đảm bảo đúng kích thước của cửa sổ
@@ -212,7 +212,7 @@ public class FinalClient {
         ImageIcon icon = new ImageIcon("D:\\LT Mạng\\Caro Game\\FinalClient\\src\\finalclient\\caro.jpg");
 
         // Điều chỉnh kích thước hình ảnh cho phù hợp
-        Image img = icon.getImage().getScaledInstance(300, 130, Image.SCALE_SMOOTH);
+        Image img = icon.getImage().getScaledInstance(300, 105, Image.SCALE_SMOOTH);
         caroImage.setIcon(new ImageIcon(img));
 
         // Đặt vị trí ngang bằng với đỉnh của bàn cờ và bên phải
@@ -318,6 +318,8 @@ public class FinalClient {
                             ie.printStackTrace();
                         }
                         thoigian.stop();
+                        turnTextField.setText("Chờ đối thủ...");
+                        turnTextField.setForeground(Color.BLUE);  // Đổi lại màu xanh lá
                     }
 
                 });
@@ -335,6 +337,17 @@ public class FinalClient {
         JButton btnConnect = new JButton("Connect");
         f.add(btnConnect);
         btnConnect.setBounds(430, 160, 150, 30);
+
+        // Thêm JTextField thông báo lượt chơi (đặt sau nút Connect)
+        turnTextField = new JTextField("Chờ đối thủ...");
+        turnTextField.setBounds(590, 160, 140, 30);
+        turnTextField.setEditable(false);
+        turnTextField.setHorizontalAlignment(JTextField.CENTER);
+        turnTextField.setFont(new Font("Arial", Font.BOLD, 12));
+        turnTextField.setForeground(Color.BLUE);  // Màu xanh lá mặc định
+        turnTextField.setBackground(Color.WHITE);
+        turnTextField.setFocusable(false);
+        f.add(turnTextField);
 
         btnConnect.addActionListener(new ActionListener() {
             @Override
@@ -409,6 +422,8 @@ public class FinalClient {
         second = 0;
         minute = 0;
         thoigian.stop();
+        turnTextField.setText("Chờ đối thủ...");
+        //turnTextField.setForeground(Color.GREEN);  // Màu xanh lá khi reset game
     }
 
     public void setVisiblePanel(JPanel pHienthi) {
@@ -563,7 +578,7 @@ public class FinalClient {
             }
             // Object[] options = { "Dong y", "Huy bo" };
             int m = JOptionPane.showConfirmDialog(f,
-                    "Ban da thua.Ban co muon choi lai khong?", "Thong bao",
+                    "Bạn đã thua. Chơi lại chứ nhỉ", "Thông báo",
                     JOptionPane.YES_NO_OPTION);
             if (m == JOptionPane.YES_OPTION) {
                 second = 0;
@@ -580,7 +595,8 @@ public class FinalClient {
                 System.exit(0);
             }
         }
-
+        turnTextField.setText("Đến lượt bạn!");
+        turnTextField.setForeground(Color.RED);  // Đổi thành màu đỏ
     }
 
     public static void main(String[] args) {

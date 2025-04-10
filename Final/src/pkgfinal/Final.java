@@ -8,7 +8,7 @@ import java.awt.event.*;
 import java.net.*;
 
 public class Final {   
-    
+    JTextField turnTextField;
     public static JFrame f;
     JButton[][] bt;
     static boolean flat = false;
@@ -188,7 +188,7 @@ public class Final {
                                 }
                                 Object[] options = { "Dong y", "Huy bo" };
                                 int m = JOptionPane.showConfirmDialog(f,
-                                                "Bạn thua rồi. Gỡ lại chứ nhỉ?", "Thông báo",
+                                                "Bạn đã thua. Chơi lại chứ nhỉ", "Thông báo",
                                                 JOptionPane.YES_NO_OPTION);
                                 if (m == JOptionPane.YES_OPTION) {
                                         second = 0;
@@ -329,6 +329,8 @@ enterchat.addKeyListener(new KeyAdapter() {
                             ie.printStackTrace();
                         }
                         thoigian.stop();
+                        turnTextField.setText("Chờ đối thủ...");  // Chuyển về trạng thái chờ
+                        turnTextField.setForeground(Color.RED);  // Giữ màu đỏ
                   }
 
                 });                
@@ -388,10 +390,17 @@ startButton.addActionListener(new ActionListener() {
     }
 });
 
-// Điều chỉnh vị trí nút "Start Server"
-startButton.setBounds(430, 160, 150, 30);  // Vị trí dưới caro.jpg và trên label "Thời gian"
-
-
+        // Điều chỉnh vị trí nút "Start Server"
+        startButton.setBounds(430, 160, 150, 30);  // Vị trí dưới caro.jpg và trên label "Thời gian"
+        // Thêm JTextField thông báo lượt chơi
+        turnTextField = new JTextField("Chờ đối thủ...");
+        turnTextField.setBounds(590, 160, 140, 30);  // Vị trí cạnh nút Start Server
+        turnTextField.setEditable(false);  // Không cho phép chỉnh sửa
+        turnTextField.setHorizontalAlignment(JTextField.CENTER);  // Canh giữa text
+        turnTextField.setFont(new Font("Arial", Font.BOLD, 12));
+        turnTextField.setForeground(Color.RED);  // Màu chữ đỏ
+        turnTextField.setBackground(Color.WHITE);  // Nền trắng
+        f.add(turnTextField);
  //finally {
               //      socket.close();
               //      serversocket.close();
@@ -413,6 +422,7 @@ startButton.setBounds(430, 160, 150, 30);  // Vị trí dưới caro.jpg và tr�
             second = 0;
             minute = 0;
             thoigian.stop();
+            turnTextField.setText("Chờ đối thủ...");  // Reset về trạng thái chờ
 }
     
     public void setVisiblePanel(JPanel pHienthi) {
@@ -588,6 +598,8 @@ startButton.setBounds(430, 160, 150, 30);  // Vị trí dưới caro.jpg và tr�
                         System.exit(0);
                 }
         }
+        turnTextField.setText("Đến lượt bạn!");  // Hiển thị khi đến lượt server
+        turnTextField.setForeground(Color.BLUE);  // Màu đỏ
         
     }
     
