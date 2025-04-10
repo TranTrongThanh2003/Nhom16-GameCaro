@@ -311,11 +311,12 @@ enterchat.addKeyListener(new KeyAdapter() {
                         //bt[a][b].setIcon(new ImageIcon(getClass().getResource("o.png")));
                             
                         bt[a][b].setText("O");
+                        bt[a][b].setBackground(new Color(200, 230, 255));
                         bt[a][b].putClientProperty("html.disable", Boolean.TRUE);  // Quan trọng!
                         bt[a][b].setFocusPainted(false);  // Tắt viền focus
                         bt[a][b].setMargin(new Insets(0, 0, 0, 0));  // Xóa margin
                         
-                        bt[a][b].setForeground(Color.BLACK);  
+                        bt[a][b].setForeground(new Color(18,28,254));  
                         bt[a][b].setFont(new Font("Arial", Font.BOLD, 12));  // Font đậm, size 12px
                         bt[a][b].setHorizontalAlignment(SwingConstants.CENTER);  // Canh giữa
                         bt[a][b].setVerticalAlignment(SwingConstants.CENTER);  // Canh giữa
@@ -550,6 +551,7 @@ startButton.setBounds(430, 160, 150, 30);  // Vị trí dưới caro.jpg và tr�
         bt[xx][yy].setFont(new Font("Arial", Font.BOLD, 12));  // Font đậm, size 12px
         bt[xx][yy].setHorizontalAlignment(SwingConstants.CENTER);  // Canh giữa
         bt[xx][yy].setVerticalAlignment(SwingConstants.CENTER);  // Canh giữa
+        bt[xx][yy].setBackground(new Color(236,236,236));
 
         // 
         // Kiem tra thang hay chua
