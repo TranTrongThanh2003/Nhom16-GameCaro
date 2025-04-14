@@ -9,7 +9,7 @@ import java.net.*;
 import finalclient.VoiceChatHandler;
 
 public class FinalClient {
-   
+    
     JTextField turnTextField;
     public static JFrame f;
     JButton[][] bt;
@@ -211,6 +211,102 @@ public class FinalClient {
             }
         });
 
+
+// Tạo JLabel với hình ảnh có thể click
+JLabel linkImage = new JLabel();
+try {
+    // Load hình ảnh từ resources (đặt file ảnh trong thư mục src/finalclient/)
+    ImageIcon icon = new ImageIcon(getClass().getResource("uth.jpg"));
+    // Scale ảnh nếu cần
+    Image img = icon.getImage().getScaledInstance(240, 42, Image.SCALE_SMOOTH);
+    linkImage.setIcon(new ImageIcon(img));
+} catch (Exception e) {
+    // Nếu không load được ảnh, dùng text thay thế
+    linkImage.setText("Link");
+}
+
+// Đặt vị trí (góc trên bên trái, phía trên nút Voice Chat)
+linkImage.setBounds(430, 10, 400, 35); // x, y, width, height
+linkImage.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // Đổi cursor khi hover
+
+// Thêm sự kiện click để mở link
+linkImage.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        try {
+            Desktop.getDesktop().browse(new URI("https://ut.edu.vn"));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(f, "Không thể mở liên kết", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+});
+
+f.add(linkImage);
+
+// Tạo JLabel với hình ảnh có thể click
+ linkImage = new JLabel();
+try {
+    // Load hình ảnh từ resources (đặt file ảnh trong thư mục src/finalclient/)
+    ImageIcon icon = new ImageIcon(getClass().getResource("hoctienganh.png"));
+    // Scale ảnh nếu cần
+    Image img = icon.getImage().getScaledInstance(240, 42, Image.SCALE_SMOOTH);
+    linkImage.setIcon(new ImageIcon(img));
+} catch (Exception e) {
+    // Nếu không load được ảnh, dùng text thay thế
+    linkImage.setText("Link");
+}
+
+// Đặt vị trí (góc trên bên trái, phía trên nút Voice Chat)
+linkImage.setBounds(430, 50, 400, 30); // x, y, width, height
+linkImage.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // Đổi cursor khi hover
+
+// Thêm sự kiện click để mở link
+linkImage.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        try {
+            Desktop.getDesktop().browse(new URI("https://vn.elsaspeak.com"));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(f, "Không thể mở liên kết", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+});
+
+f.add(linkImage);
+
+
+// Tạo JLabel với hình ảnh có thể click
+linkImage = new JLabel();
+try {
+    // Load hình ảnh từ resources (đặt file ảnh trong thư mục src/finalclient/)
+    ImageIcon icon = new ImageIcon(getClass().getResource("sachnoi.jpg"));
+    // Scale ảnh nếu cần
+    Image img = icon.getImage().getScaledInstance(240, 42, Image.SCALE_SMOOTH);
+    linkImage.setIcon(new ImageIcon(img));
+} catch (Exception e) {
+    // Nếu không load được ảnh, dùng text thay thế
+    linkImage.setText("Link");
+}
+
+// Đặt vị trí (góc trên bên trái, phía trên nút Voice Chat)
+linkImage.setBounds(430, 85, 400, 40); // x, y, width, height
+linkImage.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // Đổi cursor khi hover
+
+// Thêm sự kiện click để mở link
+linkImage.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        try {
+            Desktop.getDesktop().browse(new URI("https://radiosach.com/"));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(f, "Không thể mở liên kết", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+});
+
+f.add(linkImage);
+
+
         f.setVisible(true);
         send.addActionListener(new ActionListener() {
             @Override
@@ -234,17 +330,17 @@ public class FinalClient {
             }
         });
 
-        // Thêm hình ảnh caro.jpg
-        JLabel caroImage = new JLabel();
-        ImageIcon icon = new ImageIcon("D:\\LT Mạng\\Caro Game\\FinalClient\\src\\finalclient\\caro.jpg");
+        // // Thêm hình ảnh caro.jpg
+        // JLabel caroImage = new JLabel();
+        // ImageIcon icon = new ImageIcon("D:\\LT Mạng\\Caro Game\\FinalClient\\src\\finalclient\\caro.jpg");
 
-        // Điều chỉnh kích thước hình ảnh cho phù hợp
-        Image img = icon.getImage().getScaledInstance(300, 105, Image.SCALE_SMOOTH);
-        caroImage.setIcon(new ImageIcon(img));
+        // // Điều chỉnh kích thước hình ảnh cho phù hợp
+        // Image img = icon.getImage().getScaledInstance(300, 105, Image.SCALE_SMOOTH);
+        // caroImage.setIcon(new ImageIcon(img));
 
-        // Đặt vị trí ngang bằng với đỉnh của bàn cờ và bên phải
-        caroImage.setBounds(430, 10, 280, 130);
-        f.add(caroImage);
+        // // Đặt vị trí ngang bằng với đỉnh của bàn cờ và bên phải
+        // caroImage.setBounds(430, 10, 280, 130);
+        // f.add(caroImage);
 
         // label đếm thời gian chơi
         demthoigian = new JLabel("⏰ Thời Gian:");
@@ -377,8 +473,9 @@ public class FinalClient {
         }
 
          ipField = new JTextField("127.0.0.1"); // mặc định là localhost
-         ipField.setBounds(430, 130, 150, 25);
          f.add(ipField);
+         ipField.setBounds(430, 130, 150, 25);
+        
 
         // Thêm nút Connect (trong constructor)
         JButton btnConnect = new JButton("Connect");
@@ -387,7 +484,6 @@ public class FinalClient {
 
         // Thêm JTextField thông báo lượt chơi (đặt sau nút Connect)
         turnTextField = new JTextField("Chờ đối thủ...");
-        turnTextField.setBounds(590, 160, 140, 30);
         turnTextField.setEditable(false);
         turnTextField.setHorizontalAlignment(JTextField.CENTER);
         turnTextField.setFont(new Font("Arial", Font.BOLD, 12));
@@ -395,6 +491,7 @@ public class FinalClient {
         turnTextField.setBackground(Color.WHITE);
         turnTextField.setFocusable(false);
         f.add(turnTextField);
+        turnTextField.setBounds(590, 160, 140, 30);
 
         btnConnect.addActionListener(new ActionListener() {
             @Override
