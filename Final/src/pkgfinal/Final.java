@@ -273,7 +273,7 @@ public class Final {
         
         voiceChat = new VoiceChatHandler();
         voiceButton = new JButton("Bật Voice Chat");
-        voiceButton.setBounds(430, 100, 150, 30);
+        voiceButton.setBounds(430, 130, 150, 30);
         f.add(voiceButton);
         voiceButton.addActionListener(new ActionListener() {
             @Override
@@ -290,6 +290,100 @@ public class Final {
                 }
             }
         });
+
+        // Tạo JLabel với hình ảnh có thể click
+JLabel linkImage = new JLabel();
+try {
+    // Load hình ảnh từ resources (đặt file ảnh trong thư mục src/finalclient/)
+      icon = new ImageIcon(getClass().getResource("uth.jpg"));
+    // Scale ảnh nếu cần
+      img = icon.getImage().getScaledInstance(240, 42, Image.SCALE_SMOOTH);
+    linkImage.setIcon(new ImageIcon(img));
+} catch (Exception e) {
+    // Nếu không load được ảnh, dùng text thay thế
+    linkImage.setText("Link");
+}
+
+// Đặt vị trí (góc trên bên trái, phía trên nút Voice Chat)
+linkImage.setBounds(430, 10, 400, 35); // x, y, width, height
+linkImage.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // Đổi cursor khi hover
+
+// Thêm sự kiện click để mở link
+linkImage.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        try {
+            Desktop.getDesktop().browse(new URI("https://ut.edu.vn"));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(f, "Không thể mở liên kết", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+});
+
+f.add(linkImage);
+
+// Tạo JLabel với hình ảnh có thể click
+ linkImage = new JLabel();
+try {
+    // Load hình ảnh từ resources (đặt file ảnh trong thư mục src/finalclient/)
+      icon = new ImageIcon(getClass().getResource("hoctienganh.png"));
+    // Scale ảnh nếu cần
+      img = icon.getImage().getScaledInstance(240, 42, Image.SCALE_SMOOTH);
+    linkImage.setIcon(new ImageIcon(img));
+} catch (Exception e) {
+    // Nếu không load được ảnh, dùng text thay thế
+    linkImage.setText("Link");
+}
+
+// Đặt vị trí (góc trên bên trái, phía trên nút Voice Chat)
+linkImage.setBounds(430, 50, 400, 30); // x, y, width, height
+linkImage.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // Đổi cursor khi hover
+
+// Thêm sự kiện click để mở link
+linkImage.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        try {
+            Desktop.getDesktop().browse(new URI("https://vn.elsaspeak.com"));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(f, "Không thể mở liên kết", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+});
+
+f.add(linkImage);
+
+
+// Tạo JLabel với hình ảnh có thể click
+linkImage = new JLabel();
+try {
+    // Load hình ảnh từ resources (đặt file ảnh trong thư mục src/finalclient/)
+      icon = new ImageIcon(getClass().getResource("sachnoi.jpg"));
+    // Scale ảnh nếu cần
+      img = icon.getImage().getScaledInstance(240, 42, Image.SCALE_SMOOTH);
+    linkImage.setIcon(new ImageIcon(img));
+} catch (Exception e) {
+    // Nếu không load được ảnh, dùng text thay thế
+    linkImage.setText("Link");
+}
+
+// Đặt vị trí (góc trên bên trái, phía trên nút Voice Chat)
+linkImage.setBounds(430, 85, 400, 40); // x, y, width, height
+linkImage.setCursor(Cursor.getPredefinedCursor(Cursor.HAND_CURSOR)); // Đổi cursor khi hover
+
+// Thêm sự kiện click để mở link
+linkImage.addMouseListener(new MouseAdapter() {
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        try {
+            Desktop.getDesktop().browse(new URI("https://radiosach.com/"));
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(f, "Không thể mở liên kết", "Lỗi", JOptionPane.ERROR_MESSAGE);
+        }
+    }
+});
+
+f.add(linkImage);
 
         f.setVisible(true);
         send.addActionListener(new ActionListener() {
@@ -355,7 +449,7 @@ public class Final {
 
                         // Thêm nút voice chat
                         voiceButton = new JButton("Bật Voice Chat");
-                        voiceButton.setBounds(430, 100, 150, 30); // Điều chỉnh vị trí phù hợp
+                        voiceButton.setBounds(430, 130, 150, 30); // Điều chỉnh vị trí phù hợp
                         f.add(voiceButton);
 
                         voiceButton.addActionListener(new ActionListener() {
@@ -394,8 +488,25 @@ public class Final {
                         try {
                             serversocket = new ServerSocket(54321);
                             System.out.println("Dang doi client...");
+
+                            // Hiển thị thông báo đang chờ trên giao diện
+                        SwingUtilities.invokeLater(() -> {
+                        content.setText("Đang chờ client kết nối...\n");
+                        });
+
                             socket = serversocket.accept();
                             System.out.println("Client da ket noi thanh cong!");
+
+                            SwingUtilities.invokeLater(() -> {
+                                content.append("Client đã kết nối thành công!\n");
+                                content.setVisible(true);
+                                sp.setVisible(true);
+                                enterchat.setVisible(true);
+                                send.setVisible(true);
+                                enterchat.setEnabled(true);
+                                send.setEnabled(true);
+                            });
+
                             os = socket.getOutputStream();
                             is = socket.getInputStream();
                             oos = new ObjectOutputStream(os);
@@ -433,16 +544,16 @@ public class Final {
         });
 
         // Điều chỉnh vị trí nút "Start Server"
-        startButton.setBounds(430, 160, 150, 30); // Vị trí dưới caro.jpg và trên label "Thời gian"
+        startButton.setBounds(430, 165, 150, 30); // Vị trí dưới caro.jpg và trên label "Thời gian"
         // Thêm JTextField thông báo lượt chơi
         turnTextField = new JTextField("Chờ đối thủ...");
-        turnTextField.setBounds(590, 160, 140, 30); // Vị trí cạnh nút Start Server
         turnTextField.setEditable(false); // Không cho phép chỉnh sửa
         turnTextField.setHorizontalAlignment(JTextField.CENTER); // Canh giữa text
         turnTextField.setFont(new Font("Arial", Font.BOLD, 12));
         turnTextField.setForeground(Color.RED); // Màu chữ đỏ
         turnTextField.setBackground(Color.WHITE); // Nền trắng
         f.add(turnTextField);
+        turnTextField.setBounds(590, 165, 140, 30); // Vị trí cạnh nút Start Server
         // finally {
         // socket.close();
         // serversocket.close();
