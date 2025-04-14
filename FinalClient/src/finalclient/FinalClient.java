@@ -6,11 +6,14 @@ import javax.swing.event.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.net.*;
+import finalclient.VoiceChatHandler;
 
 public class FinalClient {
+   
     JTextField turnTextField;
     public static JFrame f;
     JButton[][] bt;
+    JTextField ipField;
     static boolean flat = false;
     boolean winner;
 
@@ -38,6 +41,9 @@ public class FinalClient {
 
     // MenuBar
     MenuBar menubar;
+    private VoiceChatHandler voiceChat;
+    private JButton voiceButton;
+    private boolean voiceEnabled = false;
 
     public FinalClient() {
         f = new JFrame();
@@ -184,6 +190,27 @@ public class FinalClient {
         f.add(enterchat);
         f.add(send);
         f.add(sp);
+        
+        voiceChat = new VoiceChatHandler();
+        voiceButton = new JButton("Bật Voice Chat");
+        voiceButton.setBounds(590, 130, 140, 30);
+        f.add(voiceButton);
+        voiceButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (!voiceEnabled) {
+                    String serverIP = ipField.getText().trim();
+                    voiceChat.connectToVoiceServer(serverIP);
+                    voiceButton.setText("🔇Tắt Voice Chat");
+                    voiceEnabled = true;
+                } else {
+                    voiceChat.stopVoiceChat();
+                    voiceButton.setText("🎙️Bật Voice Chat");
+                    voiceEnabled = false;
+                }
+            }
+        });
+
         f.setVisible(true);
         send.addActionListener(new ActionListener() {
             @Override
@@ -309,7 +336,7 @@ public class FinalClient {
                         bt[a][b].setForeground(new Color(255, 0, 0)); // Màu đỏ (có thể dùng new Color(255, 0, 0))
                         bt[a][b].setFont(new Font("Arial", Font.BOLD, 13)); // Font đậm, size 12px
                         bt[a][b].setHorizontalAlignment(SwingConstants.CENTER); // Canh giữa
-                        bt[a][b].setVerticalAlignment(SwingConstants.CENTER); // Canh 
+                        bt[a][b].setVerticalAlignment(SwingConstants.CENTER); // Canh
                         bt[a][b].setBackground(new Color(255, 240, 240));
                         try {
                             oos.writeObject("caro," + a + "," + b);
@@ -319,7 +346,27 @@ public class FinalClient {
                         }
                         thoigian.stop();
                         turnTextField.setText("Chờ đối thủ...");
-                        turnTextField.setForeground(Color.BLUE);  // Đổi lại màu xanh lá
+                        turnTextField.setForeground(Color.BLUE); // Đổi lại màu xanh lá
+
+                        voiceButton = new JButton("Bật Voice Chat");
+                        voiceButton.setBounds(590, 130, 140, 30);
+                        f.add(voiceButton);
+
+                        voiceButton.addActionListener(new ActionListener() {
+                            @Override
+                            public void actionPerformed(ActionEvent e) {
+                                if (!voiceEnabled) {
+                                    String serverIP = ipField.getText().trim();
+                                    voiceChat.connectToVoiceServer(serverIP);
+                                    voiceButton.setText("Tắt Voice Chat");
+                                    voiceEnabled = true;
+                                } else {
+                                    voiceChat.stopVoiceChat();
+                                    voiceButton.setText("Bật Voice Chat");
+                                    voiceEnabled = false;
+                                }
+                            }
+                        });
                     }
 
                 });
@@ -329,9 +376,9 @@ public class FinalClient {
             }
         }
 
-        JTextField ipField = new JTextField("127.0.0.1"); // mặc định là localhost
-        f.add(ipField);
-        ipField.setBounds(430, 130, 150, 25);
+         ipField = new JTextField("127.0.0.1"); // mặc định là localhost
+         ipField.setBounds(430, 130, 150, 25);
+         f.add(ipField);
 
         // Thêm nút Connect (trong constructor)
         JButton btnConnect = new JButton("Connect");
@@ -344,7 +391,7 @@ public class FinalClient {
         turnTextField.setEditable(false);
         turnTextField.setHorizontalAlignment(JTextField.CENTER);
         turnTextField.setFont(new Font("Arial", Font.BOLD, 12));
-        turnTextField.setForeground(Color.BLUE);  // Màu xanh lá mặc định
+        turnTextField.setForeground(Color.BLUE); // Màu xanh lá mặc định
         turnTextField.setBackground(Color.WHITE);
         turnTextField.setFocusable(false);
         f.add(turnTextField);
@@ -356,7 +403,7 @@ public class FinalClient {
                     // Kết nối đến server
                     // socket = new Socket("127.0.0.1", 1234);
                     String serverIP = ipField.getText().trim();
-                    socket = new Socket(serverIP, 1234);
+                    socket = new Socket(serverIP, 54321);
                     os = socket.getOutputStream();
                     is = socket.getInputStream();
                     oos = new ObjectOutputStream(os);
@@ -423,7 +470,7 @@ public class FinalClient {
         minute = 0;
         thoigian.stop();
         turnTextField.setText("Chờ đối thủ...");
-        //turnTextField.setForeground(Color.GREEN);  // Màu xanh lá khi reset game
+        // turnTextField.setForeground(Color.GREEN); // Màu xanh lá khi reset game
     }
 
     public void setVisiblePanel(JPanel pHienthi) {
@@ -596,11 +643,17 @@ public class FinalClient {
             }
         }
         turnTextField.setText("Đến lượt bạn!");
-        turnTextField.setForeground(Color.RED);  // Đổi thành màu đỏ
+        turnTextField.setForeground(Color.RED); // Đổi thành màu đỏ
     }
 
     public static void main(String[] args) {
-        new FinalClient();
-    }
+        FinalClient client = new FinalClient();
+        client.f.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                client.voiceChat.stopVoiceChat();
+            }
+        });
 
+    }
 }
