@@ -54,6 +54,7 @@ public class FinalClient {
         background.setBounds(0, 0, 750, 500); // Đảm bảo đúng kích thước của cửa sổ
 
         // Đặt JLabel làm nền cho JFrame
+    
         f.setContentPane(new JPanel() {
             @Override
             protected void paintComponent(Graphics g) {
