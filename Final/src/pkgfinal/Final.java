@@ -35,6 +35,7 @@ public class Final {
     ObjectInputStream ois;//
 
     // MenuBar
+    //
     MenuBar menubar;
 
     private VoiceChatHandler voiceChat;
