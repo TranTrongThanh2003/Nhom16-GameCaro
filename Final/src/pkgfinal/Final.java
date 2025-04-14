@@ -315,6 +315,7 @@ public class Final {
         });
 
         // button caro
+        // hien thi giao dien va cap nhat voice chat
         bt = new JButton[x][y];
         for (int i = 0; i < x; i++) {
             for (int j = 0; j < y; j++) {
@@ -374,6 +375,7 @@ public class Final {
                     }
 
                 });
+        
                 p.add(bt[a][b]);
                 p.setVisible(false);
                 p.setVisible(true);
